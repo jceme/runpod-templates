@@ -1,12 +1,9 @@
 name: Build and Push Docker Images
 
 on:
-#  push:
-#    branches:
-#      - main
-#  pull_request:
-#    branches:
-#      - "**"
+  push:
+    branches:
+      - my/*
   workflow_dispatch:
 
 permissions:
@@ -21,7 +18,7 @@ jobs:
     runs-on: blacksmith-8vcpu-ubuntu-2204
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Clean up runner disk space
         run: |
@@ -43,7 +40,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push pip-based image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile
@@ -61,7 +58,7 @@ jobs:
           df -h
 
       - name: Build and push uv-based image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile.uv
