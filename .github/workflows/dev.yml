@@ -46,24 +46,6 @@ jobs:
           file: ./Dockerfile
           platforms: ${{ env.DOCKER_PLATFORM }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.DOCKER_IMAGE }}:latest,${{ env.DOCKER_IMAGE }}:pip-latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Clean up Docker and disk space between builds
-        run: |
-          echo "Cleaning up Docker and disk space..."
-          docker system prune -af
-          docker builder prune -af
-          df -h
-
-      - name: Build and push uv-based image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile.uv
-          platforms: ${{ env.DOCKER_PLATFORM }}
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.DOCKER_IMAGE }}:uv-latest
+          tags: ${{ env.DOCKER_IMAGE }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max

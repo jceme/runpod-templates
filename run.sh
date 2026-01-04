@@ -10,9 +10,7 @@
 # Wait a moment for services to start
 sleep 2
 
-# Add your application commands here
-python /app/main.py
+comfy launch -- --listen 0.0.0.0 --port 8000
 
 # Wait for background processes
 wait
-
